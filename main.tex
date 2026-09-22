@@ -1,0 +1,458 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{vietnam}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begin{center}
+
+{\bfseries\large TRƯỜNG ĐẠI HỌC SƯ PHẠM, ĐẠI HỌC HUẾ}
+
+\vspace{0.15cm}
+
+{\bfseries\large KHOA TOÁN HỌC}
+
+\vspace{2.8cm}
+
+{\bfseries\Large DỰ ÁN:}
+
+\vspace{0.5cm}
+
+{\bfseries\Large
+ỨNG DỤNG CỦA CẤP SỐ\\
+VÀO BÀI TOÁN HÌNH HỌC
+}
+
+\vspace{2.8cm}
+
+{\large
+\textbf{Học phần:} Tích hợp công nghệ thông tin trong dạy học Toán
+}
+
+\end{center}
+
+\vspace{-0.3cm}
+{\large \textbf{Sinh viên thực hiện:} Lê Vũ Kim Hồng}\\
+\vspace{-0.3cm}
+
+{\large \textbf{Mã sinh viên:} 22S1010029}
+
+
+\vfill
+
+\begin{center}
+\textit{Huế, 9/2026}
+\end{center}
+
+\end{titlepage}
+\tableofcontents
+\newpage  % <--- ĐẶT LỆNH NÀY Ở ĐÂY để ngắt trang, tách biệt hoàn toàn mục lục và nội dung
+\section*{LỜI NÓI ĐẦU}
+\addcontentsline{toc}{section}{LỜI NÓI ĐẦU}
+Toán học không chỉ là những công thức và phép tính khô khan mà còn là một công cụ giúp chúng ta khám phá và giải thích nhiều hiện tượng thú vị trong tự nhiên và đời sống. Đặc biệt, hình học kết hợp với các quy luật đại số có thể tạo nên những mô hình mang vẻ đẹp đặc biệt, trong đó có các cấu trúc tự đồng dạng được hình thành thông qua quá trình lặp lại.
+
+Trong quá trình học tập về cấp số nhân, chúng ta thường tiếp cận kiến thức thông qua các dãy số và những bài toán đại số. Tuy nhiên, cấp số nhân còn có nhiều ứng dụng trực quan và thú vị trong hình học. Khi một hình được xây dựng bằng cách lặp lại một quy tắc nhất định, số lượng, độ dài, diện tích hoặc thể tích của các hình thành phần thường tạo thành những cấp số nhân. Từ đó, các bài toán hình học phức tạp có thể được mô hình hóa và giải quyết bằng những kiến thức quen thuộc về cấp số nhân.
+
+Xuất phát từ ý tưởng đó, dự án \textbf{``Ứng dụng của cấp số vào bài toán hình học''} được thực hiện nhằm tìm hiểu mối liên hệ giữa các quá trình lặp trong hình học và cấp số nhân. Dự án bắt đầu từ một câu hỏi thú vị: \textit{Liệu có một hình nào có diện tích hữu hạn nhưng lại có chu vi vô hạn?} Qua việc tìm hiểu bông tuyết Von Koch, tấm thảm Sierpinski và cây Pytago, chúng ta có thể thấy rõ cách một quy tắc hình học đơn giản, khi được lặp lại nhiều lần, có thể tạo nên những cấu trúc vô cùng phong phú và dẫn đến những kết quả bất ngờ.
+
+Nội dung dự án tập trung vào việc xây dựng cơ sở lý thuyết về tính lặp lại, phép đồng dạng và cấp số nhân; đồng thời trình bày và phân tích một số mô hình hình học tiêu biểu. Thông qua các bài toán cụ thể, dự án hướng đến việc giúp người học nhận ra cách chuyển một quá trình hình học thành một bài toán về cấp số, từ đó vận dụng công thức cấp số nhân để tìm tổng, tính giới hạn và giải quyết các yêu cầu của bài toán.
+
+Hy vọng dự án sẽ mang đến một góc nhìn trực quan, sinh động hơn về cấp số nhân. Qua đó, người học có thể nhận thấy sự gắn kết giữa các nội dung toán và khám phá thêm những vẻ đẹp thú vị của toán học.
+\newpage
+\section{Bài toán mở đầu}
+Liệu có một hình nào có diện tích hữu hạn nhưng lại có chu vi vô hạn không?
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{tuyet.png}
+\end{center}
+Bông tuyết Von Koch (được nhà toán học người Thụy Điển Helge Von Koch giới thiệu năm 1904) là một trong những hình có cấu trúc tự đồng dạng đầu tiên được mô tả. Nó được tạo thành bằng các bước sau đây:
+\begin{itemize}
+    \item \textbf{Bước 1 ($n = 1$):} Bắt đầu với một tam giác đều cạnh 1 đơn vị.
+    
+    \item \textbf{Bước 2 ($n = 2$):} Chia mỗi cạnh của tam giác thành 3 đoạn bằng nhau. Xóa đoạn ở giữa và thay thế bằng hai đoạn thẳng tạo thành một tam giác đều nhỏ hướng ra ngoài.
+    
+    \item \textbf{Bước $n$ ($n \ge 3$):} Tiếp tục lặp lại quá trình trên, thay thế đoạn thẳng ở giữa của mỗi cạnh bằng một "mũi nhọn" tam giác đều hướng ra ngoài.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh2.png}
+\end{center}
+Gọi $P_n$ và $S_n$ lần lượt là chu vi và diện tích của bông tuyết ở bước thứ $n$, thì bằng các biến đổi toán học, ta sẽ có:
+
+$$P_n = P_1 \cdot q^{n-1} = 3 \cdot \left(\dfrac{4}{3}\right)^{n-1}$$
+
+$$S_n = \dfrac{2\sqrt{3}}{5} - \dfrac{3\sqrt{3}}{20}\left(\dfrac{4}{9}\right)^{n-1}$$
+
+\noindent Nếu bạn thử tính giới hạn khi ta lặp lại các bước trên vô số lần ($n \to \infty$) thì $\lim P_n = \infty$ còn $\lim S_n = \dfrac{2\sqrt{3}}{5}$. Tức là: mặc dù diện tích của hình này là hữu hạn nhưng chu vi của nó lại lớn tới mức không thể đo đếm được. Thật kì diệu phải không? Ta sẽ cùng tìm hiểu và chứng minh nhé!
+\section{Cơ sở lý thuyết}
+\subsection{Tính lặp lại}
+Giống như bài toán bông tuyết Von Koch, cách tạo ra các hình khối có tính tự đồng dạng sẽ yêu cầu bạn phải lặp đi lặp lại một hành động nhiều lần, đây chính là tính lặp lại: tạo ra hình mới bằng cách biến đổi hình cũ theo một quy tắc nào đó. Nó giống như việc bạn tìm số hạng của dãy số bằng công thức truy hồi: $u_{n+1} = f(u_n)$ trong đó $f$ là một phép biến đổi, một quy tắc nào đó cho trước.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh3.png}
+\end{center}
+Nhiệm vụ của bạn là đọc hiểu kĩ quy tắc lặp lại mà bài cho và trả lời câu hỏi: Khi qua phép biến đổi như vậy, hình mới sẽ liên hệ với hình cũ như thế nào? Từ đó tìm ra số hạng tổng quát và tính toán yêu cầu đề bài.
+\subsection{Phép đồng dạng}
+Điểm mấu chốt của một số cấu trúc tự đồng dạng chính là phép đồng dạng, nên ta sẽ ôn lại một chút về phép biến đổi hình học này thông qua định nghĩa bên dưới.\\
+\textbf{Định nghĩa:} Phép biến hình $F$ được gọi là phép đồng dạng tỉ số $k$ ($k > 0$) nếu với hai điểm $M, N$ bất kỳ và ảnh $M', N'$ tương ứng của chúng, ta luôn có:
+\[ M'N' = k \cdot MN \]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh4.png}
+\end{center}
+\textbf{\textit{Chú ý:}} Phép đồng dạng khác với phép vị tự cần tâm $O$ và tỉ số $k$ ($k \neq 0$), phép đồng dạng chỉ quan tâm đến tỉ lệ khoảng cách tương đối giữa các điểm mà không cần một tâm biến hình cụ thể.\\
+\textbf{Định lý về tỉ số diện tích và thể tích của các hình đồng dạng:}\\
+Nếu hai hình phẳng (hoặc khối hình trong không gian) $H$ và $H'$ đồng dạng với nhau theo tỉ số $k$ ($k > 0$) thì:
+\begin{itemize}
+    \item Tỉ số giữa các đoạn thẳng tương ứng (hoặc chu vi tương ứng $P$ và $P'$) bằng $k$:
+    \[ \frac{P'}{P} = k \]
+    \item Tỉ số giữa hai diện tích tương ứng $S$ và $S'$ bằng bình phương tỉ số đồng dạng:
+    \[ \frac{S'}{S} = k^2 \]
+    \item Tỉ số giữa hai thể tích tương ứng $V$ và $V'$ bằng lập phương tỉ số đồng dạng:
+    \[ \frac{V'}{V} = k^3 \]
+\end{itemize}
+\textbf{Hệ quả ứng dụng vào Cấp số nhân:} Khi một cấu trúc hình học được tạo nên bằng cách lặp lại liên tiếp một phép đồng dạng với tỉ số $k$ ($k \neq 0$):
+\begin{enumerate}
+    \item Dãy các chu vi tương ứng tạo thành một cấp số nhân với công bội $q = k$.
+    \item Dãy các diện tích tương ứng tạo thành một cấp số nhân với công bội $q = k^2$.
+    \item Dãy các thể tích tương ứng tạo thành một cấp số nhân với công bội $q = k^3$.
+\end{enumerate}
+\subsection{Cấp số nhân}
+Để tính toán được tổng chu vi hay diện tích của một dãy các cấu trúc hình học lặp lại đến vô hạn, kiến thức nền tảng về đại số, cụ thể là cấp số nhân, là công cụ không thể thiếu.\\
+\textbf{Cấp số nhân: }\\
+Cấp số nhân là một dãy số (hữu hạn hoặc vô hạn), trong đó kể từ số hạng thứ hai, mỗi số hạng đều bằng số hạng đứng ngay trước nó nhân với một số không đổi $q$. Số $q$ được gọi là \textit{công bội} của cấp số nhân.
+\[ u_{n+1} = u_n \cdot q \quad (n \geq 1) \]
+
+\noindent Nếu một cấp số nhân có số hạng đầu $u_1$ và công bội $q$, thì số hạng tổng quát $u_n$ được xác định theo công thức:
+\[ u_n = u_1 \cdot q^{n-1} \quad (n \geq 2) \]
+\textbf{Tổng $n$ số hạng đầu của cấp số nhân:}\\
+Cho cấp số nhân $(u_n)$ có công bội $q \neq 1$. Tổng $n$ số hạng đầu tiên $S_n = u_1 + u_2 + \dots + u_n$ được tính bởi công thức:
+\[ S_n = \frac{u_1(1 - q^n)}{1 - q} \]
+
+\noindent Nếu $q = 1$ thì dãy số trở thành dãy không đổi và $S_n = n \cdot u_1$.\\
+\textbf{\textit{Chú ý:}} Với cấp số nhân lùi vô hạn ($|q| < 1$), khi số lượng số hạng $n$ tiến tới dương vô cực ($n \to +\infty$) thì giới hạn của $q^n$ tiến về $0$. Do đó, tổng của tất cả vô số các số hạng trong cấp số nhân lùi vô hạn này (kí hiệu là $S$) sẽ hội tụ về một giá trị hữu hạn:
+\[ S = u_1 + u_2 + u_3 + \dots + u_n + \dots = \frac{u_1}{1 - q} \]
+\section{Các mô hình bài toán hình học cấp số điển hình}
+\subsection{Bài toán tấm thảm Sierpinski}
+\textbf{Ví dụ 1: Tấm thảm Sierpinski}\\
+Một hình vuông có cạnh bằng $a$. Chia hình vuông đó thành $9$ hình vuông bằng nhau và bỏ đi hình vuông ở chính giữa. Với mỗi hình vuông nhỏ hơn chưa bị bỏ đi, lại chia thành $9$ hình vuông bằng nhau và bỏ đi hình vuông ở chính giữa. Cứ thế, quá trình trên được lặp lại. Tính chu vi và diện tích phần còn lại của hình vuông ban đầu sau vô hạn lần chia?
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{anh7.png}
+\end{center}
+\textbf{Hướng giải quyết bài toán:}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{anh5.png}
+\end{center}
+Quá trình xây dựng tấm thảm Sierpinski được thực hiện bằng cách lặp lại
+một quy tắc cố định. Vì vậy, số lượng và kích thước các hình vuông ở
+mỗi bước có thể được mô hình hóa bằng cấp số nhân.\\
+\textbf{a) Khảo sát chu vi của tấm thảm} \\
+Ở bước thứ $n$, có $8^{n-1}$ lỗ vuông mới được tạo ra, mỗi lỗ có cạnh
+$\dfrac{a}{3^n}$. Do đó, phần chu vi tăng thêm ở bước thứ $n$ là
+
+\[
+\Delta P_n
+=8^{n-1}\cdot4\frac{a}{3^n}
+=\frac{4a}{3}
+\left(\frac{8}{3}\right)^{n-1}.
+\]
+
+\noindent Như vậy, $(\Delta P_n)$ là một cấp số nhân có công bội
+
+\[
+q=\frac{8}{3}>1.
+\]
+
+\noindent Do đó, khi số lần lặp tiến tới vô hạn,
+
+\[
+\boxed{\lim_{n\to+\infty}P_n=+\infty}.
+\]
+\textbf{b) Khảo sát diện tích phần còn lại} \\
+Ta xét tổng diện tích các hình vuông bị loại bỏ. Ở bước thứ $n$,
+diện tích bị loại bỏ thêm là
+
+\[
+u_n
+=8^{n-1}\left(\frac{a}{3^n}\right)^2
+=\frac{a^2}{9}
+\left(\frac{8}{9}\right)^{n-1}.
+\]
+
+\noindent Do đó, $(u_n)$ là một cấp số nhân lùi vô hạn với
+
+\[
+u_1=\frac{a^2}{9},
+\qquad
+q=\frac{8}{9}<1.
+\]
+
+\noindent Tổng diện tích bị loại bỏ là
+
+\[
+S_{\text{bỏ}}
+=\frac{u_1}{1-q}
+=a^2.
+\]
+
+\noindent Vì diện tích hình vuông ban đầu bằng $a^2$, suy ra
+
+\[
+\boxed{S_{\text{còn lại}}=0}.
+\]
+
+\noindent \textbf{Kết luận:}
+
+\[
+\boxed{
+\lim_{n\to+\infty}P_n=+\infty,
+\qquad
+\lim_{n\to+\infty}S_n=0.
+}
+\]
+
+\noindent Bài toán cho thấy một quá trình hình học lặp có thể được chuyển thành
+bài toán về cấp số nhân.
+\subsection{Bài toán bông tuyết của Von Koch}
+\textbf{Ví dụ 2: Bông tuyết của Von Koch}\\
+Ta bắt đầu với một tam giác đều cạnh $a$ (đơn vị độ dài) và thực hiện quá trình lặp:
+\begin{itemize}
+    \item \textbf{Bước 1 ($n = 1$):} Bắt đầu với một tam giác đều.
+    \item \textbf{Bước 2 ($n = 2$):} Chia mỗi cạnh của tam giác thành $3$ đoạn bằng nhau. Xóa đoạn ở giữa và thay thế bằng hai đoạn thẳng tạo thành một tam giác đều nhỏ hướng ra ngoài.
+    \item \textbf{Bước $n$ ($n \geq 3$):} Tiếp tục lặp lại quá trình trên, thay thế đoạn thẳng ở giữa của mỗi cạnh bằng một "mũi nhọn" tam giác đều hướng ra ngoài.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh2.png}
+\end{center}
+Gọi $P_n$ và $S_n$ lần lượt là chu vi và diện tích của bông tuyết ở bước thứ $n$.
+\begin{itemize}
+    \item[a)] Hãy thiết lập công thức tính chu vi $P_n$. Tính số bước lặp $n$ nhỏ nhất để chu vi bông tuyết vượt qua $1000a$ đơn vị độ dài.
+    \item[b)] Hãy thiết lập công thức tính diện tích $S_n$. Khi quá trình lặp tiếp diễn mãi mãi ($n \to +\infty$), diện tích của bông tuyết tiến tới giá trị nào?
+\end{itemize}
+\textbf{Hướng giải quyết bài toán:}\\
+Điểm đặc trưng của bông tuyết Von Koch là mỗi đoạn thẳng được thay thế
+bởi 4 đoạn có độ dài bằng $\dfrac{1}{3}$ đoạn cũ. Vì vậy, các đại lượng
+hình học ở mỗi bước có thể biểu diễn bằng cấp số nhân.\\
+\textbf{a) Xét chu vi:}\\
+Chu vi ban đầu là
+
+\[
+P_1=3a.
+\]
+
+\noindent Qua mỗi bước, mỗi đoạn được thay thế bởi 4 đoạn có độ dài bằng
+$\dfrac{1}{3}$ đoạn cũ. Vì vậy, chu vi được nhân với
+$\dfrac{4}{3}$ sau mỗi bước.
+
+\noindent Do đó,
+
+\[
+P_n
+=3a\left(\frac{4}{3}\right)^{n-1}.
+\]
+
+\noindent Vì
+
+\[
+\frac{4}{3}>1,
+\]
+
+\noindent nên
+
+\[
+\boxed{\lim_{n\to+\infty}P_n=+\infty}.
+\]
+\textbf{b) Xét diện tích:}\\
+\noindent Ở mỗi bước, các tam giác đều nhỏ được thêm vào. Diện tích phần được thêm ở các bước liên tiếp tạo thành một cấp số nhân có công bội
+
+\[
+q=\frac{4}{9}<1.
+\]
+
+\noindent Diện tích tam giác đều ban đầu là
+
+\[
+S_1=\frac{\sqrt{3}}{4}a^2.
+\]
+
+\noindent Từ đó, tổng diện tích phần được thêm vào khi quá trình tiếp diễn vô hạn được tính bằng tổng của một cấp số nhân lùi vô hạn. Kết quả là
+
+\[
+S_{\infty}
+=\frac{8}{5}S_1
+=\frac{2\sqrt{3}}{5}a^2.
+\]
+
+\noindent Vậy
+
+\[
+\boxed{
+\lim_{n\to+\infty}S_n
+=\frac{2\sqrt{3}}{5}a^2
+}.
+\]
+
+\noindent \textbf{Kết luận:} Bông tuyết Von Koch là một ví dụ cho thấy một hình có thể có chu vi vô hạn nhưng diện tích hữu hạn. Điều này có được nhờ việc mô hình hóa quá trình lặp bằng các cấp số
+nhân.
+
+\subsection{Bài toán cây Pytago}
+\textbf{Ví dụ 3: Cây Pytago}\\
+Cho một hình vuông ban đầu có cạnh bằng $a$. Trên cạnh phía trên của hình vuông này, người ta dựng hai hình vuông nhỏ hơn sao cho chúng tạo với cạnh của hình vuông ban đầu thành một tam giác vuông cân. Với mỗi hình vuông mới được tạo thành, quá trình này lại tiếp tục lặp lại vô hạn lần để phát triển các nhánh của cây Pytago. Tính tổng diện tích của tất cả các hình vuông có trong cây Pytago sau vô hạn lần dựng?
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{pytago.png}
+\end{center}
+\textbf{Hướng giải quyết bài toán:}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pytago2.png}
+\end{center}
+Gọi $u_n$ là tổng diện tích các hình vuông được dựng thêm ở lần thứ
+$n$.
+\noindent Hình vuông ban đầu có diện tích
+\[
+S_0=a^2.
+\]
+\noindent Ở lần thứ nhất, hai hình vuông mới được tạo ra. Do cấu trúc tam giác vuông cân, tổng diện tích của hai hình vuông này bằng
+\[
+u_1=\frac12a^2.
+\]
+\noindent Sau mỗi lần lặp, tổng diện tích các hình vuông mới được dựng thêm bằng $\dfrac12$ tổng diện tích ở lần trước. Vì vậy,
+\[
+u_{n+1}=\frac12u_n.
+\]
+\noindent Suy ra $(u_n)$ là một cấp số nhân lùi vô hạn với
+\[
+u_1=\frac12a^2,
+\qquad
+q=\frac12.
+\]
+\noindent Tổng diện tích của tất cả các hình vuông được dựng thêm là
+\[
+S_{\text{mới}}
+=\frac{u_1}{1-q}
+=a^2.
+\]
+\noindent Do đó, tổng diện tích của toàn bộ cây Pytago, kể cả hình vuông ban đầu là
+\[
+S=S_0+S_{\text{mới}}
+=a^2+a^2.
+\]
+\noindent Vậy
+
+\[
+\boxed{S=2a^2}.
+\]
+\noindent \textbf{Kết luận:} Mặc dù quá trình dựng cây Pytago được lặp lại vô hạn lần, tổng diện tích của tất cả các hình vuông vẫn hữu hạn. Nguyên nhân là diện tích các
+hình vuông được thêm vào tạo thành một cấp số nhân lùi vô hạn với công bội $\dfrac12$.
+\section{Bài tập tự luyện}
+\textbf{Câu 1: }Cho một đoạn thẳng ban đầu có độ dài bằng $a = 1$. Ta thực hiện các bước sau:
+\begin{enumerate}
+    \item Chia đoạn thẳng này thành $3$ phần bằng nhau và xóa đi phần đoạn thẳng ở chính giữa (không bao gồm hai mút). Khi đó ta còn lại $2$ đoạn thẳng, mỗi đoạn có độ dài $\dfrac{a}{3}$.
+    \item Với mỗi đoạn thẳng còn lại, ta tiếp tục chia làm $3$ phần bằng nhau và xóa đi đoạn ở chính giữa. Khi đó ta còn lại $4$ đoạn thẳng, mỗi đoạn có độ dài $\dfrac{a}{9}$.
+    \item Lặp lại quá trình trên nhiều lần.
+\end{enumerate}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh6.png}
+\end{center}
+Hãy tính tổng độ dài của tất cả các đoạn thẳng đã bị xóa đi sau 8 bước.\\
+\textbf{Hướng giải quyết bài toán:}\\
+Ở mỗi bước, số lượng đoạn thẳng bị xóa tăng lên gấp $2$ lần, trong khi độ dài mỗi đoạn bị xóa giảm đi $3$ lần.\\
+\noindent Do đó, tổng độ dài các đoạn thẳng bị xóa ở mỗi bước tạo thành một cấp số nhân $(u_n)$ với
+\[
+u_1=\frac{a}{3},
+\qquad
+q=\frac{2}{3}.
+\]
+\noindent Tổng độ dài các đoạn bị xóa sau 8 bước chính là tổng của 8 số hạng đầu của cấp số nhân:
+\[
+S_8=u_1\frac{1-q^8}{1-q}.
+\]
+\noindent Với $a=1$, ta thu được
+\[
+\boxed{
+S_8
+=1-\left(\frac{2}{3}\right)^8
+=\frac{6305}{6561}
+\approx 0{,}961.
+}
+\]
+\noindent Qua bài toán, cần nhận ra rằng sự thay đổi đồng thời về số lượng và độ dài các đoạn thẳng tạo thành một cấp số nhân.\\
+
+\noindent \textbf{Câu 2: }Khởi đầu với một tam giác đều, ta thực hiện các bước sau:
+\begin{enumerate}
+    \item Chia nhỏ tam giác này thành 4 tam giác đều bằng nhau, sau đó ta loại bỏ tam giác ở chính giữa (trung tâm).
+    \item Lặp lại bước trên cho các tam giác còn lại.
+\end{enumerate}
+Quá trình này có thể tiến ra vô hạn, và ta được một fractal, được gọi là tam giác Sierpinski. Tính diện tích phần còn lại sau 10 lần chia. Làm tròn đến hàng phần chục.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh8.png}
+\end{center}
+\textbf{Hướng giải quyết bài toán:}\\
+Sau mỗi lần chia, mỗi tam giác còn lại được thay thế bởi 3 tam giác có diện tích bằng $\dfrac14$ diện tích tam giác trước đó.\\
+\noindent Vì vậy, tổng diện tích phần bị loại bỏ ở mỗi bước tạo thành một cấp số
+nhân với
+\[
+u_1=\frac14S_0,
+\qquad
+q=\frac34.
+\]
+\noindent Tổng diện tích bị loại bỏ sau 10 bước là
+\[
+S_{\text{bỏ}}
+=
+u_1\frac{1-q^{10}}{1-q}.
+\]
+\noindent Do đó, diện tích phần còn lại được xác định bởi
+\[
+S_{\text{còn lại}}
+=
+S_0-S_{\text{bỏ}}
+=
+S_0\left(\frac34\right)^{10}.
+\]
+\noindent Suy ra
+\[
+\boxed{
+S_{\text{còn lại}}
+\approx 0{,}0563S_0.
+}
+\]
+\noindent Bài toán cho thấy diện tích phần còn lại sau mỗi bước cũng có thể được mô hình hóa trực tiếp bằng một cấp số nhân.\\
+
+\noindent \textbf{Câu 3: }Một hình lập phương có cạnh bằng $9$, ta thực hiện các bước sau:
+\begin{enumerate}
+    \item Chia khối lập phương ban đầu thành $27$ khối lập phương nhỏ hơn, bằng nhau, tương tự như cấu trúc của một khối Rubik kích thước $3 \times 3 \times 3$.
+    \item Loại bỏ khối lập phương nhỏ nằm ở chính giữa (trung tâm của khối lớn) và $6$ khối lập phương nhỏ nằm ở trung tâm của $6$ mặt. Tức là ta loại bỏ tổng cộng $7$ khối và giữ lại $20$ khối lập phương nhỏ.
+    \item Lặp lại quy trình trên đối với mỗi khối lập phương nhỏ còn lại.
+\end{enumerate}
+Khi quá trình này được lặp lại nhiều lần, hình khối thu được chính là bọt biển Menger. Tính thể tích khối bọt biển sau $20$ lần chia. Làm tròn đến hàng phần chục.
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{anh9.png}
+\end{center}
+\noindent \textbf{Hướng giải quyết bài toán:}\\
+Ở mỗi bước, mỗi khối lập phương được chia thành $27$ khối nhỏ bằng nhau, sau đó giữ lại $20$ khối. Vì vậy, thể tích phần còn lại sau mỗi lần lặp bằng $\dfrac{20}{27}$ thể tích của bước trước.
+\noindent Do đó, dãy thể tích của khối bọt biển qua các bước tạo thành một cấp số nhân với công bội
+\[
+q=\frac{20}{27}.
+\]
+\noindent Thể tích khối lập phương ban đầu là
+\[
+V_1=9^3.
+\]
+\noindent Vì vậy, thể tích sau $20$ lần lặp được xác định bởi công thức số hạng tổng quát của cấp số nhân:
+\[
+V_{20}
+=V_1\left(\frac{20}{27}\right)^{19}
+=9^3\left(\frac{20}{27}\right)^{19}.
+\]
+\noindent Từ đó, tính giá trị $V_{20}$ và làm tròn đến hàng phần chục.
+\section*{Tài liệu tham khảo}
+\addcontentsline{toc}{section}{Tài liệu tham khảo}
+1. Ứng dụng của cấp số trong bài toán hình học - Nguyễn Sỹ Thái.\\
+2. Bùi Mạnh Hùng (Tổng Chủ biên kiêm Chủ biên) và các tác giả (2023), Toán 11, tập một, Nhà xuất bản Giáo dục Việt Nam.\\
+3. “Tấm thảm Sierpiński (Sierpiński carpet)”, Wikipedia, Bách khoa toàn thư mở.\\
+4. “Bông tuyết Koch (Koch snowflake)”, Wikipedia, Bách khoa toàn thư mở.\\
+5. “Cây Pythagoras (Pythagoras tree)”, Wikipedia, Bách khoa toàn thư mở.\\
+\end{document}
